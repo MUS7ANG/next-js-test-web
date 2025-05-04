@@ -1,7 +1,12 @@
+"use client"
+
 import Link from "next/link";
 import Image from "next/image";
+import {useCartStore} from "@/@/app/lib/store";
 
 export default function Header() {
+    const cart = useCartStore(state => state.cart);
+    const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
     return (
         <header className="bg-blue-500 p-4">
             <div className="container mx-auto flex flex-row items-center justify-between">
@@ -48,7 +53,7 @@ export default function Header() {
                         height={24}
                     />
                     <Link href="/cart" className="text-white hover:text-gray-200">
-                        Корзина
+                        Корзина {(cartCount)}
                     </Link>
                 </div>
             </nav>
