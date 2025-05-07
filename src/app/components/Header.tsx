@@ -3,10 +3,22 @@
 import Link from "next/link";
 import Image from "next/image";
 import {useCartStore} from "@/@/app/lib/store";
+import SearchBar from "@/@/app/components/SearchBar";
+import {useState} from "react";
+import {useRouter} from "next/navigation";
+
 
 export default function Header() {
     const cart = useCartStore(state => state.cart);
     const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const [searchQuery, setSearchQuery] = useState('');
+    const router = useRouter();
+
+    const handleSearch = (query: string) => {
+        setSearchQuery(query);
+        router.push(`/?search=${encodeURIComponent(query)}`);
+    };
+
     return (
         <header className="bg-blue-500 p-4">
             <div className="container mx-auto flex flex-row items-center justify-between">
@@ -22,6 +34,9 @@ export default function Header() {
                 </div>
 
             <nav className="flex flex-row justify-between space-x-6">
+                <div className="w-full sm:w-auto max-w-md">
+                    <SearchBar onSearchAction={handleSearch} />
+                </div>
                 <div className="flex flex-row items-center space-x-2">
                     <Image
                         className="dark:invert"

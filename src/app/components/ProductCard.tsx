@@ -13,11 +13,11 @@ type Product = {
 export default function ProductCard({product}: {product: Product}) {
     const addToCart = useCartStore((state) => state.addToCart);
     return (
-        <div className="">
+        <div className="bg-blue-600 border-b-4 border-blue-400 rounded-md">
             <Link href={`/products/${product.id}`}>
-                <img className="product-image" src={product.image}  alt={"product image"}/>
-                <h2 className="product-name">{product.name}</h2>
-                <p className="product-price">{product.price}</p>
+                <img className="product-image p-0.5" src={product.image}  alt={"product image"}/>
+                <h2 className="product-name p-2.5">{product.name}</h2>
+                <p className="product-price p-2.5">{product.price}</p>
             </Link>
             <button
                 onClick={() => addToCart(product)}
